@@ -97,7 +97,11 @@ namespace App.Metrics.Formatters.Ascii
             if (disposing)
             {
                 await _textPoints.WriteAsync(_textWriter, _separator, _padding);
+#if NETSTANDARD2_1
+                _textWriter?.DisposeAsync();
+#else
                 _textWriter?.Dispose();
+#endif
             }
         }
     }
